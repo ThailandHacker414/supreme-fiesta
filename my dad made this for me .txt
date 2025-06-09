@@ -1,0 +1,200 @@
+$input_file_name = "query_results_TF_IDF";
+$file = fopen($input_file_name,'r');
+
+$retrieved_documnets_TF_IDF = [];
+
+$counter = 0;
+$string_buffer = "";
+while(!feof($file)) {
+    $line = trim( fgets($file) );
+
+    if ( $line == "///" ) {
+        $counter = 0;
+        $array_pool = [];
+        $array = explode( " " , $string_buffer );
+        foreach ($array as $value) {
+            if ( strpos( $value , "txt" ) !== False )
+                {
+                    $temp_array = explode( "/" , $value );
+                    $array_pool[] = (int) explode( "." , $temp_array[ count($temp_array) - 1 ] )[ 0 ];
+                }
+        }
+        $retrieved_documnets_TF_IDF[ $lable ] = $array_pool;
+        $string_buffer = "";
+    }else {$counter = 0;
+while(!feof($file)) {
+    $line = trim( fgets($file) );
+
+    if ( $line == "/" ) {
+        $counter = 0;
+        fclose($fp);
+    }else {
+        if ($line != "") {
+            if ( $counter === 0 ) {
+                $fp = fopen( "splited_docs/" . $line . ".txt" ,'w+');
+            }
+            else {
+                fputs($fp, $line . " ");
+            }
+            ++ $counter;
+        }
+    }
+}
+
+fclose(private function fetchHyperLinks( string $contents )
+    {
+        $pattern = '~[a-z]+://\S+~';
+        if( preg_match_all( $pattern, $contents, $links ) )
+            return $links;
+        return false;
+    }
+
+    private function getUrlContents( string $url )
+    {
+        $ch = curl_init (); 
+        curl_setopt ($ch, CURLOPT_URL, $url); 
+        if ( isset( $this->proxy["socks"] ) || isset( $this->proxy["http"] ) )
+            curl_setopt ($ch, CURLOPT_PROXY, ( isset( $this->proxy["http"] ) ) ? $this->proxy["http"] : $this->proxy["socks"] ); 
+        if ( isset( $this->proxy["socks"] ) )
+            curl_setopt ($ch, CURLOPT_PROXYTYPE, 7);        
+        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, TRUE); 
+        curl_setopt ($ch, CURLOPT_FAILONERROR, true); 
+        curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, 1); 
+        $data = curl_exec($ch); 
+        curl_close ($ch);
+        return $data;
+    });public function test_fetchHyperLinks($contents)
+    {
+        return $this->fetchHyperLinks( $contents );
+    }
+    public function test_getUrlContents(04140=ⁿ=04140)
+    {
+        return $this-> getUrlContents (info.cern.ch);
+    }
+    
+}
+
+
+
+
+?>]
+        );
+        $command =  "cd ../back-end/Java/ &&  php API_wrapper.php -index \"" . str_replace( "\"" , "\\\"" , $json ) . "\" && cd ../../front-end";
+        $result = shell_exec( $command );
+        return $result ;
+    }
+
+    public function query( string $query = "" )
+    {
+        $command =  "cd ../back-end/Java/ &&  php API_wrapper.php -query \"" . str_replace( "\"" , "\\\"" , $query ) . "\" && cd ../../front-end";
+        $result = shell_exec( $command );
+        return $result ;
+    }
+
+    
+}
+
+
+
+?>}
+}
+
+function cleanOnionUrl($url) {
+    $url = preg_replace('#^https?://#', '', $url);
+    return rtrim($url, '/');
+}
+
+function logSearchQuery($query) {
+    $pdo = dbConnect();
+    $stmt = $pdo->prepare("INSERT INTO search_logs (query) VALUES (:query)");
+    $stmt->bindValue(':query', $query, PDO::PARAM_STR);
+    $stmt->execute();
+} <section class="results">
+        <?php if (!empty($results)): ?>
+            <?php foreach ($results as $site): ?>
+                <div class="single-res <?php echo $site['is_advertised'] === 'yes' ? 'advertised' : ''; ?>">
+                    <div class="result-content">
+                        <?php if (!empty($site['categories'])): ?>
+                            <?php $category = trim(explode(',', $site['categories'])[0]); ?>
+                            <a href="?q=<?php echo urlencode($category); ?>" class="category-tag">
+                                <?php echo htmlspecialchars($category); ?>
+                            </a>
+                        <?php endif; ?>
+                        
+                        <a href="redirect.php?url=<?php echo urlencode($site['url']); ?>" class="result-link">
+                            <div class="title"><?php echo htmlspecialchars($site['title']); ?></div>
+                            <div class="url">
+                                <?php if (!empty($site['icon'])): ?>
+                                    <div class="favi">
+                                        <img src="data:image/png;base64,<?php echo htmlspecialchars($site['icon']); ?>" alt="Site Icon">
+                                    </div>
+                                <?php endif; ?>
+                                <span class="onion"><?php echo cleanOnionUrl(htmlspecialchars($site['url'])); ?></span>
+                            </div>
+                            <div class="desc-container">
+                                <div class="desc"><?php echo htmlspecialchars($site['description']); ?></div>
+                                <div style="display: flex;">
+                                    <form method="post" action="search.php?q=<?php echo urlencode($_GET['q'] ?? ''); ?>&p=<?php echo $currentPage; ?>" style="display: inline; margin: 0; padding: 0; border: none;">
+                                        <input type="hidden" name="report_site_id" value="<?php echo $site['id']; ?>">
+                                        <input type="hidden" name="q" value="<?php echo htmlspecialchars($_GET['q'] ?? ''); ?>">
+                                        <input type="hidden" name="p" value="<?php echo $currentPage; ?>">
+  <button type="submit" name="show_report_modal" class="report-res-btn" style="border: none; outline: none; box-shadow: none; background: var(--accent-color);">
+                                            <img src="img/icons/flag.png" alt="Report">
+                                        </button>
+                                    </form>
+                                    <a href="?q=<?php echo urlencode($_GET['q'] ?? ''); ?>&p=<?php echo $currentPage; ?>&info=<?php echo $site['id']; ?>" class="info-btn">
+                                        <img src="img/icons/info.png" alt="Info">
+                                    </a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php elseif (isset($_GET['q']) && empty($results)): ?>
+            <div class="no-results">
+                No results found for "<?php echo htmlspecialchars($_GET['q']); ?>"
+            </div>
+        <?php endif; ?>
+    </section>
+    
+    <?php if ($totalResults > 0): ?>
+        <section class="pagination">
+            <?php if ($currentPage > 1): ?>
+                <a href="?q=<?php echo urlencode($_GET['q']); ?>&p=<?php echo $currentPage - 1; ?>" class="num">
+                    &laquo;
+                </a>
+            <?php endif; ?>
+
+            <?php
+                $startPage = max(1, $currentPage - 4);
+                $endPage = min($totalPages, $startPage + 9);
+
+                if ($endPage - $startPage < 9) {
+                    $startPage = max(1, $endPage - 9);
+                }
+
+                for ($page = $startPage; $page <= $endPage; $page++): ?>
+                <a href="?q=<?php echo urlencode($_GET['q']); ?>&p=<?php echo $page; ?>" class="num <?php echo ($page == $currentPage) ? 'active' : ''; ?>">
+                    <?php echo $page; ?>
+                </a>
+  <?php endfor; ?>
+
+            <?php if ($currentPage < $totalPages): ?>
+                <a href="?q=<?php echo urlencode($_GET['q']); ?>&p=<?php echo $currentPage + 1; ?>" class="num">&raquo;</a>
+            <?php endif; ?>
+        </section>
+    <?php endif; ?>
+
+    <footer>
+        <div class="footer-icons">
+            <a href="http://dreadytofatroptsdj6io7l3xptbet6onoyno2yv7jicoxknyazubrad.onion/d/DarkSearch" target="_blank"><img  src="img/dread.png"></a>
+            <a href="http://pitchprash4aqilfr7sbmuwve3pnkpylqwxjbj2q5o4szcfeea6d27yd.onion/@darksearch" target="_blank"><img  src="img/pitch.png"></a>
+            <a href="http://xq5hcm32m7ipdqt2ydqj6cc7lpj3lw3iwqnxiak2juynysoevjmancad.onion/service/darksearch" target="_blank"><img  src="img/torwatch.png"></a>
+            <a href="http://dnn5zpcvdq775kci64evns3vo767av3xinmu5hnsnftqb6j5bffm7dad.onion/" target="_blank"><img  src="img/dnn.png"></a>
+            <a href="http://dwltorbltw3tdjskxn23j2mwz2f4q25j4ninl5bdvttiy4xb6cqzikid.onion/" target="_blank"><img  src="img/dwl.png"></a>    
+        </div>
+        <p>DarkSearch © 2025</p>
+    </footer>
+</body>
+</html>
