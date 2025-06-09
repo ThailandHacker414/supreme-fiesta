@@ -1,0 +1,54 @@
+   }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DarkSearch - Search Results</title>
+    <link rel="stylesheet" href="css/search.css">
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
+</head>
+<body>
+    <div class="fixed-alert">
+  <header class="top-alert">
+            <div class="content">
+                <div class="alert-container">
+                    <div class="img-container">
+                        <img src="img/icons/alert.png" alt="" class="icon">
+                    </div>
+                    <div class="top-alert-message">
+                        <a href="http://dreadytofatroptsdj6io7l3xptbet6onoyno2yv7jicoxknyazubrad.onion/post/13482144df6ed92d152c">PSA: Pygmalion Arrest - Clean House Time!</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="search-header">
+        <div class="search-container">
+            <a class="search-logo" href="/">
+                <img src="img/icons/lamp.png" alt="Logo">
+            </a>
+            <form method="get" action="search.php" class="search-form">
+                <input type="text" name="q" placeholder="Search the dark web..." value="<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''; ?>">
+                <button type="submit" class="search-btn">
+                    <img src="img/icons/search-icon.png" alt="Search">
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Info Modal -->
+    <?php if ($activeModalId && !empty($results) && !$showReportModal): ?>
+        <?php foreach ($results as $site): ?>
+            <?php if ($activeModalId == $site['id']): ?>
+                <div class="modal-overlay active">
+                    <div class="modal-content">
+                        <a class="modal-back-btn" href="?q=<?php echo urlencode($_GET['q'] ?? ''); ?>&p=<?php echo $currentPage; ?>">
+                            <img src="img/icons/back-arrow.png" alt="Back">
+                        </a>
+                        <a class="modal-close" href="?q=<?php echo urlencode($_GET['q'] ?? ''); ?>&p=<?php echo $currentPage; ?>">×</a>
